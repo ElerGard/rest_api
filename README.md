@@ -27,11 +27,9 @@
 <details>
   <summary>Регистрация</summary>
 
-![alt text]
-(https://github.com/ElerGard/rest_api/blob/cb6048e36f544dc8c6457b01e14aac796c7532b6/tests/reg_1.jpg)
+![alt text](https://github.com/ElerGard/rest_api/blob/cb6048e36f544dc8c6457b01e14aac796c7532b6/tests/reg_1.jpg)
 
-![alt text]
-(https://github.com/ElerGard/rest_api/blob/cb6048e36f544dc8c6457b01e14aac796c7532b6/tests/reg_2.jpg)
+![alt text](https://github.com/ElerGard/rest_api/blob/cb6048e36f544dc8c6457b01e14aac796c7532b6/tests/reg_2.jpg)
   
 </details>
 
