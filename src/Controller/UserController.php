@@ -65,7 +65,7 @@ class UserController extends AbstractController
     public function login(Request $request, UserRepository $users): Response
     {
         $data = json_decode($request->getContent(), true);
-        var_dump($data);
+
         if ($data == null)
         {
             return new Response('Json file is not correct', Response::HTTP_BAD_REQUEST);

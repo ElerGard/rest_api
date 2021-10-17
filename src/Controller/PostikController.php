@@ -20,7 +20,7 @@ class PostikController extends AbstractController
     /**
      * @Route("/", name="allPosts", methods={"GET"})
      */
-    public function findAllPosts(Request $request, UserRepository $users, PostikRepository $postikRepository): Response
+    public function getAllPosts(Request $request, UserRepository $users, PostikRepository $postikRepository): Response
     {
         $data = json_decode($request->getContent(), true);
         if ($data == null)
@@ -48,15 +48,21 @@ class PostikController extends AbstractController
         $currentUser = $users->findOneByUsername($data['username']);
 
         if($currentUser == null || $currentUser->getPassword() !== $data['password']) {
-            return new Response('Login or password incorrect', Response::HTTP_BAD_REQUEST);;
+            return new Response('Login or password incorrect', Response::HTTP_BAD_REQUEST);
         }
         $postiki = $postikRepository->findBy([
             "user" => $currentUser
         ]);
 
+        if ($postiki == null)
+        {
+            return new Response('No posts', Response::HTTP_OK);
+        }
+
         foreach ($postiki as $postik) {
             $array = [
-                "id" => $postik->getTitle(),
+                "id" => $postik->getId(),
+                "title" => $postik->getTitle(),
                 "description" => $postik->getDescription()
             ];
 
@@ -65,7 +71,7 @@ class PostikController extends AbstractController
 
         print_r($result);
 
-        return new Response('Posts was printed',Response::HTTP_OK);;
+        return new Response('Posts was printed',Response::HTTP_OK);
     }
 
     /**
@@ -115,7 +121,7 @@ class PostikController extends AbstractController
         $currentUser = $users->findOneByUsername($data['username']);
 
         if($currentUser == null || $currentUser->getPassword() !== $data['password']) {
-            return new Response('Login or password incorrect', Response::HTTP_BAD_REQUEST);;
+            return new Response('Login or password incorrect', Response::HTTP_BAD_REQUEST);
         }
 
         $post = new Postik();
@@ -130,7 +136,7 @@ class PostikController extends AbstractController
         $em->persist($currentUser);
         $em->persist($post);
         $em->flush();
-        return new Response('Your post has been posted', Response::HTTP_OK);;
+        return new Response('Your post has been posted', Response::HTTP_OK);
 
     }
 
@@ -182,11 +188,20 @@ class PostikController extends AbstractController
         $currentUser = $users->findOneByUsername($data['username']);
 
         if($currentUser == null || $currentUser->getPassword() !== $data['password']) {
-            return new Response('Login or password incorrect', Response::HTTP_BAD_REQUEST);;
+            return new Response('Login or password incorrect', Response::HTTP_BAD_REQUEST);
         }
 
         $postik = $postikRepository->find($id);
 
+        if ($postik == null)
+        {
+            return new Response('This post is not exist', Response::HTTP_BAD_REQUEST);
+        }
+
+        if ($currentUser !== $postik->getUser())
+        {
+            return new Response('This post is not yours', Response::HTTP_BAD_REQUEST);
+        }
 
         $postik->setTitle($data['title']);
         $postik->setDescription($data['description']);
@@ -231,10 +246,20 @@ class PostikController extends AbstractController
         $currentUser = $users->findOneByUsername($data['username']);
 
         if($currentUser == null || $currentUser->getPassword() !== $data['password']) {
-            return new Response('Login or password incorrect', Response::HTTP_BAD_REQUEST);;
+            return new Response('Login or password incorrect', Response::HTTP_BAD_REQUEST);
         }
 
         $postik = $postikRepository->find($id);
+
+        if ($postik == null)
+        {
+            return new Response('This post is not exist', Response::HTTP_BAD_REQUEST);
+        }
+
+        if ($currentUser !== $postik->getUser())
+        {
+            return new Response('This post is not yours', Response::HTTP_BAD_REQUEST);
+        }
         $currentUser->removePostiki($postik);
 
         $em = $this->getDoctrine()->getManager();
