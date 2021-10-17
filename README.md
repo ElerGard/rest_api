@@ -41,22 +41,22 @@
   ![alt text](https://github.com/ElerGard/rest_api/blob/cb6048e36f544dc8c6457b01e14aac796c7532b6/tests/auth_2.jpg)
   
 </details>
+ 
+ <details>
+  <summary>Вывод постов</summary>
+
+  ![alt text](https://github.com/ElerGard/rest_api/blob/cb6048e36f544dc8c6457b01e14aac796c7532b6/tests/getAllPosts_1.jpg)
   
+  ![alt text](https://github.com/ElerGard/rest_api/blob/cb6048e36f544dc8c6457b01e14aac796c7532b6/tests/getAllPosts_2.jpg)
+  
+</details>
+ 
 <details>
   <summary>Создание поста</summary>
 
   ![alt text](https://github.com/ElerGard/rest_api/blob/cb6048e36f544dc8c6457b01e14aac796c7532b6/tests/createPost_1.jpg)
   
   ![alt text](https://github.com/ElerGard/rest_api/blob/cb6048e36f544dc8c6457b01e14aac796c7532b6/tests/createPost_2.jpg)
-  
-</details>
-
-<details>
-  <summary>Вывод постов</summary>
-
-  ![alt text](https://github.com/ElerGard/rest_api/blob/cb6048e36f544dc8c6457b01e14aac796c7532b6/tests/getAllPosts_1.jpg)
-  
-  ![alt text](https://github.com/ElerGard/rest_api/blob/cb6048e36f544dc8c6457b01e14aac796c7532b6/tests/getAllPosts_2.jpg)
   
 </details>
 
