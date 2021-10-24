@@ -25,30 +25,30 @@ class PostikController extends AbstractController
         $data = json_decode($request->getContent(), true);
         if ($data == null)
         {
-            return new Response('Json file is not correct', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file is not correct"], $status = 400);
         }
         if (!isset($data['username']))
         {
-            return new Response('Json file do not contains username', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file do not contains username"], $status = 400);
         }
         if (!isset($data['password']))
         {
-            return new Response('Json file do not contains password', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file do not contains password"], $status = 400);
         }
 
         if ($data['username'] == null)
         {
-            return new Response('Username empty', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Username empty"], $status = 400);
         }
         if ($data['password'] == null)
         {
-            return new Response('Password empty', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Password empty"], $status = 400);
         }
 
         $currentUser = $users->findOneByUsername($data['username']);
 
         if($currentUser == null || $currentUser->getPassword() !== $data['password']) {
-            return new Response('Login or password incorrect', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
         $postiki = $postikRepository->findBy([
             "user" => $currentUser
@@ -56,7 +56,7 @@ class PostikController extends AbstractController
 
         if ($postiki == null)
         {
-            return new Response('No posts', Response::HTTP_OK);
+            return $this->json(['data' => "No posts"], $status = 200);
         }
 
         foreach ($postiki as $postik) {
@@ -69,9 +69,7 @@ class PostikController extends AbstractController
             $result[] = $array;
         }
 
-        print_r($result);
-
-        return new Response('Posts was printed',Response::HTTP_OK);
+        return $this->json(['data' => $result], $status = 200);
     }
 
     /**
@@ -82,46 +80,47 @@ class PostikController extends AbstractController
         $data = json_decode($request->getContent(), true);
         if ($data == null)
         {
-            return new Response('Json file is not correct', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file is not correct"], $status = 400);
         }
         if (!isset($data['username']))
         {
-            return new Response('Json file do not contains username', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file do not contains username"], $status = 400);
         }
         if (!isset($data['password']))
         {
-            return new Response('Json file do not contains password', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file do not contains password"], $status = 400);
         }
         if (!isset($data['title']))
         {
-            return new Response('Json file do not contains title', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file do not contains title"], $status = 400);
         }
         if (!isset($data['description']))
         {
-            return new Response('Json file do not contains description', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file do not contains description"], $status = 400);
         }
 
         if ($data['username'] == null)
         {
-            return new Response('Username empty', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Username empty"], $status = 400);
         }
         if ($data['password'] == null)
         {
-            return new Response('Password empty', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Password empty"], $status = 400);
         }
         if ($data['title'] == null)
         {
-            return new Response('Title empty', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Title empty"], $status = 400);
         }
         if ($data['description'] == null)
         {
-            return new Response('Description empty', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Description empty"], $status = 400);
         }
+
 
         $currentUser = $users->findOneByUsername($data['username']);
 
         if($currentUser == null || $currentUser->getPassword() !== $data['password']) {
-            return new Response('Login or password incorrect', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
         $post = new Postik();
@@ -136,8 +135,7 @@ class PostikController extends AbstractController
         $em->persist($currentUser);
         $em->persist($post);
         $em->flush();
-        return new Response('Your post has been posted', Response::HTTP_OK);
-
+        return $this->json(['data' => "Your post has been posted"], $status = 200);
     }
 
     /**
@@ -149,58 +147,58 @@ class PostikController extends AbstractController
 
         if ($data == null)
         {
-            return new Response('Json file is not correct', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file is not correct"], $status = 400);
         }
         if (!isset($data['username']))
         {
-            return new Response('Json file do not contains username', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file do not contains username"], $status = 400);
         }
         if (!isset($data['password']))
         {
-            return new Response('Json file do not contains password', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file do not contains password"], $status = 400);
         }
         if (!isset($data['title']))
         {
-            return new Response('Json file do not contains title', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file do not contains title"], $status = 400);
         }
         if (!isset($data['description']))
         {
-            return new Response('Json file do not contains description', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file do not contains description"], $status = 400);
         }
 
         if ($data['username'] == null)
         {
-            return new Response('Username empty', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Username empty"], $status = 400);
         }
         if ($data['password'] == null)
         {
-            return new Response('Password empty', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Password empty"], $status = 400);
         }
         if ($data['title'] == null)
         {
-            return new Response('Title empty', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Title empty"], $status = 400);
         }
         if ($data['description'] == null)
         {
-            return new Response('Description empty', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Description empty"], $status = 400);
         }
 
         $currentUser = $users->findOneByUsername($data['username']);
 
         if($currentUser == null || $currentUser->getPassword() !== $data['password']) {
-            return new Response('Login or password incorrect', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
         $postik = $postikRepository->find($id);
 
         if ($postik == null)
         {
-            return new Response('This post is not exist', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "This post is not exist"], $status = 400);
         }
 
         if ($currentUser !== $postik->getUser())
         {
-            return new Response('This post is not yours', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "This post is not yours"], $status = 400);
         }
 
         $postik->setTitle($data['title']);
@@ -211,7 +209,7 @@ class PostikController extends AbstractController
         $em->merge($postik);
         $em->flush();
 
-        return new Response('Post was changed', Response::HTTP_OK);
+        return $this->json(['data' => "Post was changed"], $status = 200);
     }
 
     /**
@@ -223,43 +221,44 @@ class PostikController extends AbstractController
 
         if ($data == null)
         {
-            return new Response('Json file is not correct', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file is not correct"], $status = 400);
         }
         if (!isset($data['username']))
         {
-            return new Response('Json file do not contains username', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file do not contains username"], $status = 400);
         }
         if (!isset($data['password']))
         {
-            return new Response('Json file do not contains password', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file do not contains password"], $status = 400);
         }
 
         if ($data['username'] == null)
         {
-            return new Response('Username empty', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Username empty"], $status = 400);
         }
         if ($data['password'] == null)
         {
-            return new Response('Password empty', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Password empty"], $status = 400);
         }
 
         $currentUser = $users->findOneByUsername($data['username']);
 
         if($currentUser == null || $currentUser->getPassword() !== $data['password']) {
-            return new Response('Login or password incorrect', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
         $postik = $postikRepository->find($id);
 
         if ($postik == null)
         {
-            return new Response('This post is not exist', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "This post is not exist"], $status = 400);
         }
 
         if ($currentUser !== $postik->getUser())
         {
-            return new Response('This post is not yours', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "This post is not yours"], $status = 400);
         }
+
         $currentUser->removePostiki($postik);
 
         $em = $this->getDoctrine()->getManager();
@@ -267,6 +266,6 @@ class PostikController extends AbstractController
         $em->remove($postik);
         $em->flush();
 
-        return new Response('Post was deleted', Response::HTTP_OK);
+        return $this->json(['data' => "Post was deleted"], $status = 200);
     }
 }

@@ -22,28 +22,29 @@ class UserController extends AbstractController
         $data = json_decode($request->getContent(), true);
         if ($data == null)
         {
-            return new Response('Json file is not correct', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file is not correct"], $status = 400);
         }
         if (!isset($data['username']))
         {
-            return new Response('Json file do not contains username', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file do not contains username"], $status = 400);
         }
         if (!isset($data['password']))
         {
-            return new Response('Json file do not contains password', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file do not contains password"], $status = 400);
         }
 
         if ($data['username'] == null)
         {
-            return new Response('Username empty', Response::HTTP_BAD_REQUEST);;
+            return $this->json(['error_message' => "Username empty"], $status = 400);
         }
         if ($data['password'] == null)
         {
-            return new Response('Password empty', Response::HTTP_BAD_REQUEST);;
+            return $this->json(['error_message' => "Password empty"], $status = 400);
         }
 
-        if($users->findOneByUsername($data['username']) !== null) {
-            return new Response('User with this login already registered', Response::HTTP_BAD_REQUEST);;
+        if($users->findOneByUsername($data['username']) !== null)
+        {
+            return $this->json(['error_message' => "User with this login already registered"], $status = 400);
         }
 
         $user = new User();
@@ -55,7 +56,7 @@ class UserController extends AbstractController
         $em->persist($user);
         $em->flush();
 
-        return new Response('You have successfully registered', Response::HTTP_OK);;
+        return $this->json(['data' => "You have successfully registered"], $status = 200);
 
     }
 
@@ -68,33 +69,34 @@ class UserController extends AbstractController
 
         if ($data == null)
         {
-            return new Response('Json file is not correct', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file is not correct"], $status = 400);
         }
         if (!isset($data['username']))
         {
-            return new Response('Json file do not contains username', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file do not contains username"], $status = 400);
         }
         if (!isset($data['password']))
         {
-            return new Response('Json file do not contains password', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error_message' => "Json file do not contains password"], $status = 400);
         }
 
         if ($data['username'] == null)
         {
-            return new Response('Username empty', Response::HTTP_BAD_REQUEST);;
+            return $this->json(['error_message' => "Username empty"], $status = 400);
         }
         if ($data['password'] == null)
         {
-            return new Response('Password empty', Response::HTTP_BAD_REQUEST);;
+            return $this->json(['error_message' => "Password empty"], $status = 400);
         }
 
         $currentUser = $users->findOneByUsername($data['username']);
 
         if($currentUser == null || $currentUser->getPassword() !== $data['password']) {
-            return new Response('Login or password incorrect', Response::HTTP_BAD_REQUEST);;
+            return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
-        return new Response('You log in such as '.$data['username'], Response::HTTP_OK);;
+        return $this->json(['data' => "You log in such as ".$data['username']], $status = 200);
+
 
     }
 
