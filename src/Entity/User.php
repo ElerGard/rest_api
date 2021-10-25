@@ -39,13 +39,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity=Postik::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Todo::class, mappedBy="user")
      */
-    private $postiki;
+    private $Todo;
 
     public function __construct()
     {
-        $this->postiki = new ArrayCollection();
+        $this->Todo = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -133,29 +133,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|Postik[]
+     * @return Collection|Todo[]
      */
-    public function getPostiki(): Collection
+    public function getTodo(): Collection
     {
-        return $this->postiki;
+        return $this->Todo;
     }
 
-    public function addPostiki(Postik $postiki): self
+    public function addTodo(Todo $Todo): self
     {
-        if (!$this->postiki->contains($postiki)) {
-            $this->postiki[] = $postiki;
-            $postiki->setUser($this);
+        if (!$this->Todo->contains($Todo)) {
+            $this->Todo[] = $Todo;
+            $Todo->setUser($this);
         }
 
         return $this;
     }
 
-    public function removePostiki(Postik $postiki): self
+    public function removeTodo(Todo $Todo): self
     {
-        if ($this->postiki->removeElement($postiki)) {
+        if ($this->Todo->removeElement($Todo)) {
             // set the owning side to null (unless already changed)
-            if ($postiki->getUser() === $this) {
-                $postiki->setUser(null);
+            if ($Todo->getUser() === $this) {
+                $Todo->setUser(null);
             }
         }
 

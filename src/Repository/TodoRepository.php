@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Postik;
+use App\Entity\Todo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Postik|null find($id, $lockMode = null, $lockVersion = null)
- * @method Postik|null findOneBy(array $criteria, array $orderBy = null)
- * @method Postik[]    findAll()
- * @method Postik[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Todo|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Todo|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Todo[]    findAll()
+ * @method Todo[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PostikRepository extends ServiceEntityRepository
+class TodoRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Postik::class);
+        parent::__construct($registry, Todo::class);
     }
 
     // /**
-    //  * @return Postik[] Returns an array of Postik objects
+    //  * @return Todo[] Returns an array of Todo objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class PostikRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Postik
+    public function findOneBySomeField($value): ?Todo
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.exampleField = :val')

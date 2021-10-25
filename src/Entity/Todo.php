@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\PostikRepository;
+use App\Repository\TodoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=PostikRepository::class)
+ * @ORM\Entity(repositoryClass=TodoRepository::class)
  */
-class Postik
+class Todo
 {
     /**
      * @ORM\Id
@@ -18,7 +18,7 @@ class Postik
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="postiki")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="Todo")
      */
     private $user;
 

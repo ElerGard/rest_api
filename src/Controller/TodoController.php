@@ -7,20 +7,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
-use App\Entity\Postik;
-use App\Repository\PostikRepository;
+use App\Entity\Todo;
+use App\Repository\TodoRepository;
 use App\Repository\UserRepository;
 use App\Controller\UserController;
 
 /**
  * @Route("/todo")
  */
-class PostikController extends AbstractController
+class TodoController extends AbstractController
 {
     /**
      * @Route("/", name="allTodo", methods={"GET"})
      */
-    public function getAllPosts(Request $request, UserRepository $users, PostikRepository $postikRepository): Response
+    public function getAllPosts(Request $request, UserRepository $users, TodoRepository $TodoRepository): Response
     {
         $data = json_decode($request->getContent(), true);
         if ($data == null)
@@ -50,20 +50,20 @@ class PostikController extends AbstractController
         if($currentUser == null || $currentUser->getPassword() !== $data['password']) {
             return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
-        $postiki = $postikRepository->findBy([
+        $Todos = $TodoRepository->findBy([
             "user" => $currentUser
         ]);
 
-        if ($postiki == null)
+        if ($Todos == null)
         {
             return $this->json(['data' => "No todo"], $status = 200);
         }
 
-        foreach ($postiki as $postik) {
+        foreach ($Todos as $Todo) {
             $array = [
-                "id" => $postik->getId(),
-                "title" => $postik->getTitle(),
-                "description" => $postik->getDescription()
+                "id" => $Todo->getId(),
+                "title" => $Todo->getTitle(),
+                "description" => $Todo->getDescription()
             ];
 
             $result[] = $array;
@@ -123,17 +123,17 @@ class PostikController extends AbstractController
             return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
-        $post = new Postik();
-        $post->setTitle($data['title']);
-        $post->setDescription($data['description']);
-        $post->setUser($currentUser);
+        $Todo = new Todo();
+        $Todo->setTitle($data['title']);
+        $Todo->setDescription($data['description']);
+        $Todo->setUser($currentUser);
 
-        $currentUser->addPostiki($post);
+        $currentUser->addTodo($Todo);
 
         $em = $this->getDoctrine()->getManager();
 
         $em->persist($currentUser);
-        $em->persist($post);
+        $em->persist($Todo);
         $em->flush();
         return $this->json(['data' => "Your todo has been created"], $status = 200);
     }
@@ -141,7 +141,7 @@ class PostikController extends AbstractController
     /**
      * @Route("/{id}", name="change", methods={"PUT"})
      */
-    public function changePost(Request $request, UserRepository $users, PostikRepository $postikRepository, $id): Response
+    public function changePost(Request $request, UserRepository $users, TodoRepository $TodoRepository, $id): Response
     {
         $data = json_decode($request->getContent(), true);
 
@@ -189,24 +189,24 @@ class PostikController extends AbstractController
             return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
-        $postik = $postikRepository->find($id);
+        $Todo = $TodoRepository->find($id);
 
-        if ($postik == null)
+        if ($Todo == null)
         {
             return $this->json(['error_message' => "This todo is not exist"], $status = 400);
         }
 
-        if ($currentUser !== $postik->getUser())
+        if ($currentUser !== $Todo->getUser())
         {
             return $this->json(['error_message' => "This todo is not yours"], $status = 400);
         }
 
-        $postik->setTitle($data['title']);
-        $postik->setDescription($data['description']);
+        $Todo->setTitle($data['title']);
+        $Todo->setDescription($data['description']);
 
         $em = $this->getDoctrine()->getManager();
 
-        $em->merge($postik);
+        $em->merge($Todo);
         $em->flush();
 
         return $this->json(['data' => "Todo was changed"], $status = 200);
@@ -215,7 +215,7 @@ class PostikController extends AbstractController
     /**
      * @Route("/{id}", name="delete", methods={"DELETE"})
      */
-    public function deleteToDo(Request $request, UserRepository $users, PostikRepository $postikRepository, $id): Response
+    public function deleteToDo(Request $request, UserRepository $users, TodoRepository $TodoRepository, $id): Response
     {
         $data = json_decode($request->getContent(), true);
 
@@ -247,23 +247,23 @@ class PostikController extends AbstractController
             return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
-        $postik = $postikRepository->find($id);
+        $Todo = $TodoRepository->find($id);
 
-        if ($postik == null)
+        if ($Todo == null)
         {
             return $this->json(['error_message' => "This todo is not exist"], $status = 400);
         }
 
-        if ($currentUser !== $postik->getUser())
+        if ($currentUser !== $Todo->getUser())
         {
             return $this->json(['error_message' => "This todo is not yours"], $status = 400);
         }
 
-        $currentUser->removePostiki($postik);
+        $currentUser->removeTodo($Todo);
 
         $em = $this->getDoctrine()->getManager();
         $em->merge($currentUser);
-        $em->remove($postik);
+        $em->remove($Todo);
         $em->flush();
 
         return $this->json(['data' => "Todo was deleted"], $status = 200);
