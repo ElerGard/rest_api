@@ -13,12 +13,12 @@ use App\Repository\UserRepository;
 use App\Controller\UserController;
 
 /**
- * @Route("/postik")
+ * @Route("/todo")
  */
 class PostikController extends AbstractController
 {
     /**
-     * @Route("/", name="allPosts", methods={"GET"})
+     * @Route("/", name="allTodo", methods={"GET"})
      */
     public function getAllPosts(Request $request, UserRepository $users, PostikRepository $postikRepository): Response
     {
@@ -56,7 +56,7 @@ class PostikController extends AbstractController
 
         if ($postiki == null)
         {
-            return $this->json(['data' => "No posts"], $status = 200);
+            return $this->json(['data' => "No todo"], $status = 200);
         }
 
         foreach ($postiki as $postik) {
@@ -135,7 +135,7 @@ class PostikController extends AbstractController
         $em->persist($currentUser);
         $em->persist($post);
         $em->flush();
-        return $this->json(['data' => "Your post has been posted"], $status = 200);
+        return $this->json(['data' => "Your todo has been created"], $status = 200);
     }
 
     /**
@@ -193,12 +193,12 @@ class PostikController extends AbstractController
 
         if ($postik == null)
         {
-            return $this->json(['error_message' => "This post is not exist"], $status = 400);
+            return $this->json(['error_message' => "This todo is not exist"], $status = 400);
         }
 
         if ($currentUser !== $postik->getUser())
         {
-            return $this->json(['error_message' => "This post is not yours"], $status = 400);
+            return $this->json(['error_message' => "This todo is not yours"], $status = 400);
         }
 
         $postik->setTitle($data['title']);
@@ -209,13 +209,13 @@ class PostikController extends AbstractController
         $em->merge($postik);
         $em->flush();
 
-        return $this->json(['data' => "Post was changed"], $status = 200);
+        return $this->json(['data' => "Todo was changed"], $status = 200);
     }
 
     /**
      * @Route("/{id}", name="delete", methods={"DELETE"})
      */
-    public function deletePost(Request $request, UserRepository $users, PostikRepository $postikRepository, $id): Response
+    public function deleteToDo(Request $request, UserRepository $users, PostikRepository $postikRepository, $id): Response
     {
         $data = json_decode($request->getContent(), true);
 
@@ -251,12 +251,12 @@ class PostikController extends AbstractController
 
         if ($postik == null)
         {
-            return $this->json(['error_message' => "This post is not exist"], $status = 400);
+            return $this->json(['error_message' => "This todo is not exist"], $status = 400);
         }
 
         if ($currentUser !== $postik->getUser())
         {
-            return $this->json(['error_message' => "This post is not yours"], $status = 400);
+            return $this->json(['error_message' => "This todo is not yours"], $status = 400);
         }
 
         $currentUser->removePostiki($postik);
@@ -266,6 +266,6 @@ class PostikController extends AbstractController
         $em->remove($postik);
         $em->flush();
 
-        return $this->json(['data' => "Post was deleted"], $status = 200);
+        return $this->json(['data' => "Todo was deleted"], $status = 200);
     }
 }
