@@ -76,7 +76,7 @@
 <details>
   <summary>Удаление todo</summary>
 
-  ![alt text](https://github.com/ElerGard/rest_api/blob/fc060f36442ea8c521451daf61cfbe840a0e4d93/tests/deleteTodo1.jpg)
+  ![alt text](https://github.com/ElerGard/rest_api/blob/fc060f36442ea8c521451daf61cfbe840a0e4d93/tests/deleteTodo.jpg)
   
   ![alt text](https://github.com/ElerGard/rest_api/blob/fc060f36442ea8c521451daf61cfbe840a0e4d93/tests/deleteTodo2.jpg)
   
