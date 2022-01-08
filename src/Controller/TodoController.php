@@ -20,7 +20,7 @@ class TodoController extends AbstractController
     /**
      * @Route("/", name="allTodo", methods={"GET"})
      */
-    public function getAllPosts(Request $request, UserRepository $users, TodoRepository $TodoRepository): Response
+    public function getAllTodo(Request $request, UserRepository $users, TodoRepository $TodoRepository): Response
     {
         $data = json_decode($request->getContent(), true);
         if ($data == null)
@@ -75,7 +75,7 @@ class TodoController extends AbstractController
     /**
      * @Route("/", name="create", methods={"POST"})
      */
-    public function create(Request $request, UserRepository $users): Response
+    public function createTodo(Request $request, UserRepository $users): Response
     {
         $data = json_decode($request->getContent(), true);
         if ($data == null)
@@ -141,7 +141,7 @@ class TodoController extends AbstractController
     /**
      * @Route("/{id}", name="change", methods={"PUT"})
      */
-    public function changePost(Request $request, UserRepository $users, TodoRepository $TodoRepository, $id): Response
+    public function changeTodo(Request $request, UserRepository $users, TodoRepository $TodoRepository, $id): Response
     {
         $data = json_decode($request->getContent(), true);
 

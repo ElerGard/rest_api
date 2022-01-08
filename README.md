@@ -43,7 +43,7 @@
 </details>
  
  <details>
-  <summary>Вывод постов</summary>
+  <summary>Вывод todo</summary>
 
   ![alt text](https://github.com/ElerGard/rest_api/blob/fc060f36442ea8c521451daf61cfbe840a0e4d93/tests/GetTodo1.jpg)
   
@@ -52,7 +52,7 @@
 </details>
  
 <details>
-  <summary>Создание поста</summary>
+  <summary>Создание todo</summary>
 
   ![alt text](https://github.com/ElerGard/rest_api/blob/fc060f36442ea8c521451daf61cfbe840a0e4d93/tests/createTodo1.jpg)
   
@@ -61,7 +61,7 @@
 </details>
 
 <details>
-  <summary>Изменение поста</summary>
+  <summary>Изменение todo</summary>
 
   ![alt text](https://github.com/ElerGard/rest_api/blob/fc060f36442ea8c521451daf61cfbe840a0e4d93/tests/changeTodo1.jpg)
   
@@ -74,9 +74,13 @@
 </details>
 
 <details>
-  <summary>Удаление поста</summary>
+  <summary>Удаление todo</summary>
 
+<<<<<<< HEAD
   ![alt text](https://github.com/ElerGard/rest_api/blob/fc060f36442ea8c521451daf61cfbe840a0e4d93/tests/deleteTodo1.jpg)
+=======
+  ![alt text](https://github.com/ElerGard/rest_api/blob/fc060f36442ea8c521451daf61cfbe840a0e4d93/tests/deleteTodo.jpg)
+>>>>>>> 6fc59d56191e13881fc54d94046014c75ec86dd4
   
   ![alt text](https://github.com/ElerGard/rest_api/blob/fc060f36442ea8c521451daf61cfbe840a0e4d93/tests/deleteTodo2.jpg)
   
