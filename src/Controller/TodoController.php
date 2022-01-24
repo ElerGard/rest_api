@@ -22,7 +22,8 @@ class TodoController extends AbstractController
      */
     public function getAllTodo(Request $request, UserRepository $users, TodoRepository $TodoRepository): Response
     {
-        $data = json_decode($request->getContent(), true);
+        $data['username'] = $request->headers->get('php-auth-user');
+        $data['password'] = $request->headers->get('php-auth-pw');
         if ($data == null)
         {
             return $this->json(['error_message' => "Json file is not correct"], $status = 400);
@@ -77,7 +78,10 @@ class TodoController extends AbstractController
      */
     public function createTodo(Request $request, UserRepository $users): Response
     {
+
         $data = json_decode($request->getContent(), true);
+        $data['username'] = $request->headers->get('php-auth-user');
+        $data['password'] = $request->headers->get('php-auth-pw');
         if ($data == null)
         {
             return $this->json(['error_message' => "Json file is not correct"], $status = 400);
@@ -144,7 +148,8 @@ class TodoController extends AbstractController
     public function changeTodo(Request $request, UserRepository $users, TodoRepository $TodoRepository, $id): Response
     {
         $data = json_decode($request->getContent(), true);
-
+        $data['username'] = $request->headers->get('php-auth-user');
+        $data['password'] = $request->headers->get('php-auth-pw');
         if ($data == null)
         {
             return $this->json(['error_message' => "Json file is not correct"], $status = 400);
@@ -218,7 +223,8 @@ class TodoController extends AbstractController
     public function deleteToDo(Request $request, UserRepository $users, TodoRepository $TodoRepository, $id): Response
     {
         $data = json_decode($request->getContent(), true);
-
+        $data['username'] = $request->headers->get('php-auth-user');
+        $data['password'] = $request->headers->get('php-auth-pw');
         if ($data == null)
         {
             return $this->json(['error_message' => "Json file is not correct"], $status = 400);

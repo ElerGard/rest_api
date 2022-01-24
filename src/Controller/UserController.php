@@ -19,7 +19,9 @@ class UserController extends AbstractController
      */
     public function createUser(Request $request, UserRepository $users): Response
     {
-        $data = json_decode($request->getContent(), true);
+        $data['username'] = $request->headers->get('php-auth-user');
+        $data['password'] = $request->headers->get('php-auth-pw');
+        
         if ($data == null)
         {
             return $this->json(['error_message' => "Json file is not correct"], $status = 400);
@@ -65,7 +67,8 @@ class UserController extends AbstractController
      */
     public function login(Request $request, UserRepository $users): Response
     {
-        $data = json_decode($request->getContent(), true);
+        $data['username'] = $request->headers->get('php-auth-user');
+        $data['password'] = $request->headers->get('php-auth-pw');
 
         if ($data == null)
         {
@@ -96,8 +99,6 @@ class UserController extends AbstractController
         }
 
         return $this->json(['data' => "You log in such as ".$data['username']], $status = 200);
-
-
     }
 
 }
