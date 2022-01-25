@@ -76,16 +76,35 @@
 <details>
   <summary>Удаление todo</summary>
 
-<<<<<<< HEAD
   ![alt text](https://github.com/ElerGard/rest_api/blob/fc060f36442ea8c521451daf61cfbe840a0e4d93/tests/deleteTodo1.jpg)
-=======
+
   ![alt text](https://github.com/ElerGard/rest_api/blob/fc060f36442ea8c521451daf61cfbe840a0e4d93/tests/deleteTodo.jpg)
->>>>>>> 6fc59d56191e13881fc54d94046014c75ec86dd4
   
   ![alt text](https://github.com/ElerGard/rest_api/blob/fc060f36442ea8c521451daf61cfbe840a0e4d93/tests/deleteTodo2.jpg)
   
   ![alt text](https://github.com/ElerGard/rest_api/blob/fc060f36442ea8c521451daf61cfbe840a0e4d93/tests/deleteTodo3.jpg)
   
   ![alt text](https://github.com/ElerGard/rest_api/blob/fc060f36442ea8c521451daf61cfbe840a0e4d93/tests/deleteTodo4.jpg)
+  
+</details>
+
+<details>
+  <summary>Работа с файлами</summary>
+
+  ![alt text](https://github.com/ElerGard/rest_api/blob/e2512d215c1b597b94c7e8fc39839c8a557e4afa/tests/file1.jpg)
+
+  ![alt text](https://github.com/ElerGard/rest_api/blob/e2512d215c1b597b94c7e8fc39839c8a557e4afa/tests/file2.jpg)
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/e2512d215c1b597b94c7e8fc39839c8a557e4afa/tests/file3.jpg)
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/e2512d215c1b597b94c7e8fc39839c8a557e4afa/tests/file4.jpg)
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/e2512d215c1b597b94c7e8fc39839c8a557e4afa/tests/file5.jpg)
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/e2512d215c1b597b94c7e8fc39839c8a557e4afa/tests/file6.jpg)
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/e2512d215c1b597b94c7e8fc39839c8a557e4afa/tests/file7.jpg)
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/e2512d215c1b597b94c7e8fc39839c8a557e4afa/tests/file8.jpg)
   
 </details>
