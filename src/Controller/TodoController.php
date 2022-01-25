@@ -70,7 +70,7 @@ class TodoController extends AbstractController
             $result[] = $array;
         }
 
-        return $this->json(['data' => $result], $status = 200);
+        return $this->json($result, $status = 200);
     }
 
     /**
