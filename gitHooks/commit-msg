@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if ! grep -Eq "^\[[0-9]+\] [a-zA-Z0-9]+" "$1";
+  then
+    echo "Wrong commit message. Try [number] message"
+    exit -1
+fi
