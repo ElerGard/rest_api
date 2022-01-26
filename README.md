@@ -108,3 +108,24 @@
   ![alt text](https://github.com/ElerGard/rest_api/blob/e2512d215c1b597b94c7e8fc39839c8a557e4afa/tests/file8.jpg)
   
 </details>
+
+<details>
+  <summary>Imrove it</summary>
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/6e8c6eddd7336f99bbbebe81ed20828ea40cb76d/Improve%20it/phpstan.jpg)
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/6e8c6eddd7336f99bbbebe81ed20828ea40cb76d/Improve%20it/phpcs_before.jpg)
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/6e8c6eddd7336f99bbbebe81ed20828ea40cb76d/Improve%20it/phpcbf.jpg)
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/6e8c6eddd7336f99bbbebe81ed20828ea40cb76d/Improve%20it/phpcs_after.jpg)
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/6e8c6eddd7336f99bbbebe81ed20828ea40cb76d/Improve%20it/phpcsfixer.jpg)
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/6e8c6eddd7336f99bbbebe81ed20828ea40cb76d/Improve%20it/phpmd.jpg)
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/6e8c6eddd7336f99bbbebe81ed20828ea40cb76d/Improve%20it/ecs.jpg)
+  
+</details>
+
+
