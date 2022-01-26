@@ -1,0 +1,25 @@
+
+###> symfony/framework-bundle ###
+.env.test
+.php-cs-fixer.cache
+ecs.php
+phpcbf.phar
+phpcs.phar
+phpmd.phar
+.env
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+/src/Security
+/src/Service/FileUploader.php
+/templates/
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###

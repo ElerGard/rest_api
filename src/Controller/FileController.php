@@ -29,36 +29,30 @@ class FileController extends AbstractController
         $username = $request->headers->get('php-auth-user');
         $password = $request->headers->get('php-auth-pw');
 
-        if (!isset($username))
-        {
+        if (!isset($username)) {
             return $this->json(['error_message' => "Username not specified"], $status = 400);
         }
-        if (!isset($password))
-        {
+        if (!isset($password)) {
             return $this->json(['error_message' => "Password not specified"], $status = 400);
         }
 
-        if ($username == null)
-        {
+        if ($username == null) {
             return $this->json(['error_message' => "Username empty"], $status = 400);
         }
-        if ($password == null)
-        {
+        if ($password == null) {
             return $this->json(['error_message' => "Password empty"], $status = 400);
         }
 
         $currentUser = $users->findOneByUsername($username);
 
-        if($currentUser == null || $currentUser->getPassword() !== $password) {
+        if ($currentUser == null || $currentUser->getPassword() !== $password) {
             return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
         $files_directory = $this->getParameter('files_directory');
 
-        if ($fileData)
-        {
-            if ($fileRepository->findOneBy(['fileName' => $fileData->getClientOriginalName()]) != null)
-            {
+        if ($fileData) {
+            if ($fileRepository->findOneBy(['fileName' => $fileData->getClientOriginalName()]) != null) {
                 return $this->json(['error_message' => "File with this name already exist. Please rename file and try again"], $status = 400);
             }
             $filename = md5(uniqid()) . '.' . $fileData->guessClientExtension();
@@ -83,7 +77,6 @@ class FileController extends AbstractController
         }
 
         return $this->json(['error_message' => "No file selected"], $status = 400);
-
     }
 
     /**
@@ -94,36 +87,33 @@ class FileController extends AbstractController
         $username = $request->headers->get('php-auth-user');
         $password = $request->headers->get('php-auth-pw');
 
-        if (!isset($username))
-        {
+        if (!isset($username)) {
             return $this->json(['error_message' => "Username not specified"], $status = 400);
         }
-        if (!isset($password))
-        {
+        if (!isset($password)) {
             return $this->json(['error_message' => "Password not specified"], $status = 400);
         }
 
-        if ($username == null)
-        {
+        if ($username == null) {
             return $this->json(['error_message' => "Username empty"], $status = 400);
         }
-        if ($password == null)
-        {
+        if ($password == null) {
             return $this->json(['error_message' => "Password empty"], $status = 400);
         }
 
         $currentUser = $users->findOneByUsername($username);
 
-        if($currentUser == null || $currentUser->getPassword() !== $password) {
+        if ($currentUser == null || $currentUser->getPassword() !== $password) {
             return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
-        $files = $fileRepository->findBy([
+        $files = $fileRepository->findBy(
+            [
             "user" => $currentUser
-        ]);
+            ]
+        );
 
-        if ($files == null)
-        {
+        if ($files == null) {
             return $this->json(['error_message' => "No files with this name"], $status = 200);
         }
 
@@ -138,12 +128,11 @@ class FileController extends AbstractController
             $result[] = $array;
         }
 
-        if ($result == null)
-        {
+        if ($result == null) {
             return $this->json("Not okay", $status = 500);
-        }
-        else
+        } else {
             return $this->json($result, $status = 200);
+        }
     }
 
     /**
@@ -154,39 +143,33 @@ class FileController extends AbstractController
         $username = $request->headers->get('php-auth-user');
         $password = $request->headers->get('php-auth-pw');
 
-        if (!isset($username))
-        {
+        if (!isset($username)) {
             return $this->json(['error_message' => "Username not specified"], $status = 400);
         }
-        if (!isset($password))
-        {
+        if (!isset($password)) {
             return $this->json(['error_message' => "Password not specified"], $status = 400);
         }
 
-        if ($username == null)
-        {
+        if ($username == null) {
             return $this->json(['error_message' => "Username empty"], $status = 400);
         }
-        if ($password == null)
-        {
+        if ($password == null) {
             return $this->json(['error_message' => "Password empty"], $status = 400);
         }
 
         $currentUser = $users->findOneByUsername($username);
 
-        if($currentUser == null || $currentUser->getPassword() !== $password) {
+        if ($currentUser == null || $currentUser->getPassword() !== $password) {
             return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
         $file = $fileRepository->findOneBy(['fileName' => $name]);
 
-        if ($file == null)
-        {
+        if ($file == null) {
             return $this->json(['error_message' => "No files with this name"], $status = 200);
         }
 
-        if ($currentUser !== $file->getUser())
-        {
+        if ($currentUser !== $file->getUser()) {
             return $this->json(['error_message' => "This file is not yours"], $status = 400);
         }
 
@@ -195,7 +178,7 @@ class FileController extends AbstractController
         return $this->dowloadResult($files_directory . '/' . $file->getUploadedName());
     }
 
-    private function dowloadResult($filepath) : BinaryFileResponse
+    private function dowloadResult($filepath): BinaryFileResponse
     {
         return new BinaryFileResponse($filepath);
     }
@@ -207,41 +190,33 @@ class FileController extends AbstractController
     {
         $username = $request->headers->get('php-auth-user');
         $password = $request->headers->get('php-auth-pw');
-        if (!isset($username))
-        {
+        if (!isset($username)) {
             return $this->json(['error_message' => "Username not specified"], $status = 400);
-
         }
-        if (!isset($password))
-        {
+        if (!isset($password)) {
             return $this->json(['error_message' => "Password not specified"], $status = 400);
-
         }
 
-        if ($username == null)
-        {
+        if ($username == null) {
             return $this->json(['error_message' => "Username empty"], $status = 400);
         }
-        if ($password == null)
-        {
+        if ($password == null) {
             return $this->json(['error_message' => "Password empty"], $status = 400);
         }
 
         $currentUser = $users->findOneByUsername($username);
 
-        if($currentUser == null || $currentUser->getPassword() !== $password) {
+        if ($currentUser == null || $currentUser->getPassword() !== $password) {
             return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
         $file = $fileRepository->findOneBy(['fileName' => $name]);
 
-        if ($file == null)
-        {
+        if ($file == null) {
             return $this->json(['error_message' => "No files with this name"], $status = 200);
         }
 
-        if ($currentUser !== $file->getUser())
-        {
+        if ($currentUser !== $file->getUser()) {
             return $this->json(['error_message' => "This file is not yours"], $status = 400);
         }
 
@@ -258,5 +233,4 @@ class FileController extends AbstractController
 
         return $this->json(['data' => "File was deleted"], $status = 200);
     }
-
 }

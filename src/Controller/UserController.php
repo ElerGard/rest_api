@@ -21,31 +21,25 @@ class UserController extends AbstractController
     {
         $data['username'] = $request->headers->get('php-auth-user');
         $data['password'] = $request->headers->get('php-auth-pw');
-        
-        if ($data == null)
-        {
+
+        if ($data == null) {
             return $this->json(['error_message' => "Json file is not correct"], $status = 400);
         }
-        if (!isset($data['username']))
-        {
+        if (!isset($data['username'])) {
             return $this->json(['error_message' => "Json file do not contains username"], $status = 400);
         }
-        if (!isset($data['password']))
-        {
+        if (!isset($data['password'])) {
             return $this->json(['error_message' => "Json file do not contains password"], $status = 400);
         }
 
-        if ($data['username'] == null)
-        {
+        if ($data['username'] == null) {
             return $this->json(['error_message' => "Username empty"], $status = 400);
         }
-        if ($data['password'] == null)
-        {
+        if ($data['password'] == null) {
             return $this->json(['error_message' => "Password empty"], $status = 400);
         }
 
-        if($users->findOneByUsername($data['username']) !== null)
-        {
+        if ($users->findOneByUsername($data['username']) !== null) {
             return $this->json(['error_message' => "User with this login already registered"], $status = 400);
         }
 
@@ -59,7 +53,6 @@ class UserController extends AbstractController
         $em->flush();
 
         return $this->json(['data' => "You have successfully registered"], $status = 200);
-
     }
 
     /**
@@ -70,35 +63,29 @@ class UserController extends AbstractController
         $data['username'] = $request->headers->get('php-auth-user');
         $data['password'] = $request->headers->get('php-auth-pw');
 
-        if ($data == null)
-        {
+        if ($data == null) {
             return $this->json(['error_message' => "Json file is not correct"], $status = 400);
         }
-        if (!isset($data['username']))
-        {
+        if (!isset($data['username'])) {
             return $this->json(['error_message' => "Json file do not contains username"], $status = 400);
         }
-        if (!isset($data['password']))
-        {
+        if (!isset($data['password'])) {
             return $this->json(['error_message' => "Json file do not contains password"], $status = 400);
         }
 
-        if ($data['username'] == null)
-        {
+        if ($data['username'] == null) {
             return $this->json(['error_message' => "Username empty"], $status = 400);
         }
-        if ($data['password'] == null)
-        {
+        if ($data['password'] == null) {
             return $this->json(['error_message' => "Password empty"], $status = 400);
         }
 
         $currentUser = $users->findOneByUsername($data['username']);
 
-        if($currentUser == null || $currentUser->getPassword() !== $data['password']) {
+        if ($currentUser == null || $currentUser->getPassword() !== $data['password']) {
             return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
         return $this->json(['data' => "You log in such as ".$data['username']], $status = 200);
     }
-
 }
