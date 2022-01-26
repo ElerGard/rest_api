@@ -128,4 +128,11 @@
   
 </details>
 
-
+<details>
+  <summary>Dev/Prod</summary>
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/65b211ca6251b382c23ea3e92e02de24aa47d317/DevProd/dev.jpg)
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/65b211ca6251b382c23ea3e92e02de24aa47d317/DevProd/prod.jpg)
+  
+</details>
