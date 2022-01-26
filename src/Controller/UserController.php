@@ -94,8 +94,6 @@ class UserController extends AbstractController
 
         $currentUser = $users->findOneByUsername($data['username']);
 
-        var_dump($currentUser);
-
         if($currentUser == null || $currentUser->getPassword() !== $data['password']) {
             return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }

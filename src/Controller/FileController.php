@@ -20,9 +20,11 @@ class FileController extends AbstractController
     /**
      * @Route("/", name="upload", methods={"POST"})
      */
-    public function uploadFile(Request $request, UserRepository $users): Response
+    public function uploadFile(Request $request, UserRepository $users, FileRepository $fileRepository): Response
     {
         $fileData = $request->files->get('file');
+
+
 
         $username = $request->headers->get('php-auth-user');
         $password = $request->headers->get('php-auth-pw');
@@ -55,6 +57,10 @@ class FileController extends AbstractController
 
         if ($fileData)
         {
+            if ($fileRepository->findOneBy(['fileName' => $fileData->getClientOriginalName()]) != null)
+            {
+                return $this->json(['error_message' => "File with this name already exist. Please rename file and try again"], $status = 400);
+            }
             $filename = md5(uniqid()) . '.' . $fileData->guessClientExtension();
 
             $fileData->move(
@@ -76,8 +82,8 @@ class FileController extends AbstractController
             return $this->json(['data' => "Your file has been uploaded"], $status = 200);
         }
 
+        return $this->json(['error_message' => "No file selected"], $status = 400);
 
-        return $this->json(['data' => 'No files'], $status = 200);
     }
 
     /**
@@ -118,17 +124,17 @@ class FileController extends AbstractController
 
         if ($files == null)
         {
-            return $this->json(['data' => "No files"], $status = 200);
+            return $this->json(['error_message' => "No files with this name"], $status = 200);
         }
 
         $result = null;
 
         foreach ($files as $file) {
-                $array = [
-                    "id" => $file->getId(),
-                    "filename" => $file->getFileName(),
-                    "size_byte" => $file->getSize()
-                ];
+            $array = [
+                "id" => $file->getId(),
+                "filename" => $file->getFileName(),
+                "size_byte" => $file->getSize()
+            ];
             $result[] = $array;
         }
 
@@ -141,9 +147,9 @@ class FileController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="file", methods={"GET"})
+     * @Route("/{name}", name="file", methods={"GET"})
      */
-    public function getFile(Request $request, FileRepository $fileRepository, UserRepository $users, $id): BinaryFileResponse
+    public function getFile(Request $request, FileRepository $fileRepository, UserRepository $users, $name): Response
     {
         $username = $request->headers->get('php-auth-user');
         $password = $request->headers->get('php-auth-pw');
@@ -172,11 +178,11 @@ class FileController extends AbstractController
             return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
-        $file = $fileRepository->find($id);
+        $file = $fileRepository->findOneBy(['fileName' => $name]);
 
         if ($file == null)
         {
-            return $this->json(['data' => "No files"], $status = 200);
+            return $this->json(['error_message' => "No files with this name"], $status = 200);
         }
 
         if ($currentUser !== $file->getUser())
@@ -186,13 +192,18 @@ class FileController extends AbstractController
 
         $files_directory = $this->getParameter('files_directory');
 
-        return new BinaryFileResponse($files_directory . '/' . $file->getUploadedName());
+        return $this->dowloadResult($files_directory . '/' . $file->getUploadedName());
+    }
+
+    private function dowloadResult($filepath) : BinaryFileResponse
+    {
+        return new BinaryFileResponse($filepath);
     }
 
     /**
-     * @Route("/{id}", name="delete_file", methods={"DELETE"})
+     * @Route("/{name}", name="delete_file", methods={"DELETE"})
      */
-    public function deleteFile(Request $request, FileRepository $fileRepository, UserRepository $users, $id): Response
+    public function deleteFile(Request $request, FileRepository $fileRepository, UserRepository $users, $name): Response
     {
         $username = $request->headers->get('php-auth-user');
         $password = $request->headers->get('php-auth-pw');
@@ -222,11 +233,11 @@ class FileController extends AbstractController
             return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
-        $file = $fileRepository->find($id);
+        $file = $fileRepository->findOneBy(['fileName' => $name]);
 
         if ($file == null)
         {
-            return $this->json(['data' => "No files"], $status = 200);
+            return $this->json(['error_message' => "No files with this name"], $status = 200);
         }
 
         if ($currentUser !== $file->getUser())
