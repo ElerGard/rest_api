@@ -136,3 +136,12 @@
   ![alt text](https://github.com/ElerGard/rest_api/blob/65b211ca6251b382c23ea3e92e02de24aa47d317/DevProd/prod.jpg)
   
 </details>
+
+<details>
+  <summary>Hooks</summary>
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/603f6bc19000e1293839e79c3897aa38e2a8280f/Hooks/server_hook.jpg)
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/603f6bc19000e1293839e79c3897aa38e2a8280f/Hooks/hooks.jpg)
+  
+</details>
