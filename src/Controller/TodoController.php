@@ -24,39 +24,35 @@ class TodoController extends AbstractController
     {
         $data['username'] = $request->headers->get('php-auth-user');
         $data['password'] = $request->headers->get('php-auth-pw');
-        if ($data == null)
-        {
+        if ($data == null) {
             return $this->json(['error_message' => "Json file is not correct"], $status = 400);
         }
-        if (!isset($data['username']))
-        {
+        if (!isset($data['username'])) {
             return $this->json(['error_message' => "Json file do not contains username"], $status = 400);
         }
-        if (!isset($data['password']))
-        {
+        if (!isset($data['password'])) {
             return $this->json(['error_message' => "Json file do not contains password"], $status = 400);
         }
 
-        if ($data['username'] == null)
-        {
+        if ($data['username'] == null) {
             return $this->json(['error_message' => "Username empty"], $status = 400);
         }
-        if ($data['password'] == null)
-        {
+        if ($data['password'] == null) {
             return $this->json(['error_message' => "Password empty"], $status = 400);
         }
 
         $currentUser = $users->findOneByUsername($data['username']);
 
-        if($currentUser == null || $currentUser->getPassword() !== $data['password']) {
+        if ($currentUser == null || $currentUser->getPassword() !== $data['password']) {
             return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
-        $Todos = $TodoRepository->findBy([
+        $Todos = $TodoRepository->findBy(
+            [
             "user" => $currentUser
-        ]);
+            ]
+        );
 
-        if ($Todos == null)
-        {
+        if ($Todos == null) {
             return $this->json(['data' => "No todo"], $status = 200);
         }
 
@@ -78,52 +74,42 @@ class TodoController extends AbstractController
      */
     public function createTodo(Request $request, UserRepository $users): Response
     {
-
         $data = json_decode($request->getContent(), true);
         $data['username'] = $request->headers->get('php-auth-user');
         $data['password'] = $request->headers->get('php-auth-pw');
-        if ($data == null)
-        {
+        if ($data == null) {
             return $this->json(['error_message' => "Json file is not correct"], $status = 400);
         }
-        if (!isset($data['username']))
-        {
+        if (!isset($data['username'])) {
             return $this->json(['error_message' => "Json file do not contains username"], $status = 400);
         }
-        if (!isset($data['password']))
-        {
+        if (!isset($data['password'])) {
             return $this->json(['error_message' => "Json file do not contains password"], $status = 400);
         }
-        if (!isset($data['title']))
-        {
+        if (!isset($data['title'])) {
             return $this->json(['error_message' => "Json file do not contains title"], $status = 400);
         }
-        if (!isset($data['description']))
-        {
+        if (!isset($data['description'])) {
             return $this->json(['error_message' => "Json file do not contains description"], $status = 400);
         }
 
-        if ($data['username'] == null)
-        {
+        if ($data['username'] == null) {
             return $this->json(['error_message' => "Username empty"], $status = 400);
         }
-        if ($data['password'] == null)
-        {
+        if ($data['password'] == null) {
             return $this->json(['error_message' => "Password empty"], $status = 400);
         }
-        if ($data['title'] == null)
-        {
+        if ($data['title'] == null) {
             return $this->json(['error_message' => "Title empty"], $status = 400);
         }
-        if ($data['description'] == null)
-        {
+        if ($data['description'] == null) {
             return $this->json(['error_message' => "Description empty"], $status = 400);
         }
 
 
         $currentUser = $users->findOneByUsername($data['username']);
 
-        if($currentUser == null || $currentUser->getPassword() !== $data['password']) {
+        if ($currentUser == null || $currentUser->getPassword() !== $data['password']) {
             return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
@@ -150,59 +136,48 @@ class TodoController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $data['username'] = $request->headers->get('php-auth-user');
         $data['password'] = $request->headers->get('php-auth-pw');
-        if ($data == null)
-        {
+        if ($data == null) {
             return $this->json(['error_message' => "Json file is not correct"], $status = 400);
         }
-        if (!isset($data['username']))
-        {
+        if (!isset($data['username'])) {
             return $this->json(['error_message' => "Json file do not contains username"], $status = 400);
         }
-        if (!isset($data['password']))
-        {
+        if (!isset($data['password'])) {
             return $this->json(['error_message' => "Json file do not contains password"], $status = 400);
         }
-        if (!isset($data['title']))
-        {
+        if (!isset($data['title'])) {
             return $this->json(['error_message' => "Json file do not contains title"], $status = 400);
         }
-        if (!isset($data['description']))
-        {
+        if (!isset($data['description'])) {
             return $this->json(['error_message' => "Json file do not contains description"], $status = 400);
         }
 
-        if ($data['username'] == null)
-        {
+        if ($data['username'] == null) {
             return $this->json(['error_message' => "Username empty"], $status = 400);
         }
-        if ($data['password'] == null)
-        {
+        if ($data['password'] == null) {
             return $this->json(['error_message' => "Password empty"], $status = 400);
         }
-        if ($data['title'] == null)
-        {
+        if ($data['title'] == null) {
             return $this->json(['error_message' => "Title empty"], $status = 400);
         }
-        if ($data['description'] == null)
-        {
+        if ($data['description'] == null) {
             return $this->json(['error_message' => "Description empty"], $status = 400);
         }
 
         $currentUser = $users->findOneByUsername($data['username']);
 
-        if($currentUser == null || $currentUser->getPassword() !== $data['password']) {
+        if ($currentUser == null || $currentUser->getPassword() !== $data['password']) {
             return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
         $Todo = $TodoRepository->find($id);
 
-        if ($Todo == null)
-        {
+        if ($Todo == null) {
             return $this->json(['error_message' => "This todo is not exist"], $status = 400);
         }
 
-        if ($currentUser !== $Todo->getUser())
-        {
+        if ($currentUser !== $Todo->getUser()) {
             return $this->json(['error_message' => "This todo is not yours"], $status = 400);
         }
 
@@ -225,43 +200,36 @@ class TodoController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $data['username'] = $request->headers->get('php-auth-user');
         $data['password'] = $request->headers->get('php-auth-pw');
-        if ($data == null)
-        {
+        if ($data == null) {
             return $this->json(['error_message' => "Json file is not correct"], $status = 400);
         }
-        if (!isset($data['username']))
-        {
+        if (!isset($data['username'])) {
             return $this->json(['error_message' => "Json file do not contains username"], $status = 400);
         }
-        if (!isset($data['password']))
-        {
+        if (!isset($data['password'])) {
             return $this->json(['error_message' => "Json file do not contains password"], $status = 400);
         }
 
-        if ($data['username'] == null)
-        {
+        if ($data['username'] == null) {
             return $this->json(['error_message' => "Username empty"], $status = 400);
         }
-        if ($data['password'] == null)
-        {
+        if ($data['password'] == null) {
             return $this->json(['error_message' => "Password empty"], $status = 400);
         }
 
         $currentUser = $users->findOneByUsername($data['username']);
 
-        if($currentUser == null || $currentUser->getPassword() !== $data['password']) {
+        if ($currentUser == null || $currentUser->getPassword() !== $data['password']) {
             return $this->json(['error_message' => "Login or password incorrect"], $status = 400);
         }
 
         $Todo = $TodoRepository->find($id);
 
-        if ($Todo == null)
-        {
+        if ($Todo == null) {
             return $this->json(['error_message' => "This todo is not exist"], $status = 400);
         }
 
-        if ($currentUser !== $Todo->getUser())
-        {
+        if ($currentUser !== $Todo->getUser()) {
             return $this->json(['error_message' => "This todo is not yours"], $status = 400);
         }
 

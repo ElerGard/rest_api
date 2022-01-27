@@ -22,8 +22,8 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
-    App\Service\FileUploader:
+    App\Service\Health:
         arguments:
-            $targetDirectory: '%files_directory%'
+            $health: '%env(resolve:APP_ENV)%'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
