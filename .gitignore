@@ -1,5 +1,14 @@
 
 ###> symfony/framework-bundle ###
+<<<<<<< HEAD
+=======
+.env.test
+.php-cs-fixer.cache
+ecs.php
+phpcbf.phar
+phpcs.phar
+phpmd.phar
+>>>>>>> 7f13d279bf1a4e084cd5bb06a41ce0134d584020
 .env
 /.env.local
 /.env.local.php
