@@ -145,3 +145,12 @@
   ![alt text](https://github.com/ElerGard/rest_api/blob/603f6bc19000e1293839e79c3897aa38e2a8280f/Hooks/hooks.jpg)
   
 </details>
+
+<details>
+  <summary>ssh</summary>
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/2421c7773c800841b32ef55d93647d8f3f7c97fb/Scripts_screen/dev.jpg)
+  
+  ![alt text](https://github.com/ElerGard/rest_api/blob/53a35ad12c300a1a59c990ee3679573baeb83f4d/Scripts_screen/prod_files.png)
+  
+</details>
