@@ -10,7 +10,4 @@ jobs:
     steps:
 
       - name: Execute tests (Unit and Feature tests) via PHPUni
-        uses: actions/checkout@v2
-          with:
-            path: vendor
         run: vendor/bin/phpunit
