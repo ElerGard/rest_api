@@ -2,6 +2,8 @@
 
 use Symfony\Component\Dotenv\Dotenv;
 
+(new \Symfony\Component\Filesystem\Filesystem())->remove(__DIR__.'/../var/cache/test');
+
 require dirname(__DIR__).'/vendor/autoload.php';
 
 if (file_exists(dirname(__DIR__).'/config/bootstrap.php')) {
