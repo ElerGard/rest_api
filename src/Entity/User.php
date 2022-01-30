@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -196,5 +196,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public static function ensureIsValidUser(string $log, string $pass): bool
+    {
+        if ($log == "" || strlen($log) < 3 )
+            throw new InvalidArgumentException(
+                sprintf(
+                    '"%s" is not a valid login',
+                    $log
+                )
+            );
+        if ($pass == "" || strlen($pass) < 3)
+            throw new InvalidArgumentException(
+                sprintf(
+                    '"%s" is not a valid password',
+                    $pass
+                )
+            );
+        return true;
     }
 }

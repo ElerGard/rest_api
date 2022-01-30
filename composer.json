@@ -45,6 +45,7 @@
     },
     "require-dev": {
         "phpstan/phpstan": "^1.4",
+        "phpunit/phpunit": "^9",
         "symfony/browser-kit": "5.3.*",
         "symfony/css-selector": "5.3.*",
         "symfony/debug-bundle": "5.3.*",
